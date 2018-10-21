@@ -12,6 +12,10 @@ namespace LrcPlayer
 {
     public partial class Form1 : Form
     {
+        [System.Runtime.InteropServices.DllImport("winmm.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        private static extern int mciSendString(String command,StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
+        private string aliesName = "Media File";
+
         public Form1()
         {
             InitializeComponent();
