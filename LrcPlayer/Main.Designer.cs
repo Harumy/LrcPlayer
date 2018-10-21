@@ -1,6 +1,6 @@
 ﻿namespace LrcPlayer
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// 必要なデザイナー変数です。
