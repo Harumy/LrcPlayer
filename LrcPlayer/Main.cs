@@ -12,13 +12,17 @@ namespace LrcPlayer
 {
     public partial class Main : Form
     {
+
+        public string[][] PlayList;
+
         [System.Runtime.InteropServices.DllImport("winmm.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-        private static extern int mciSendString(String command,StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
+        private static extern int MciSendString(String command,StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
         private string aliesName = "Media File";
 
         public Main()
         {
             InitializeComponent();
+            List.List_check();
         }
     }
 }
