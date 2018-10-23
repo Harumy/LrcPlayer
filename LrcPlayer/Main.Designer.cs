@@ -33,7 +33,7 @@
             this.LrcDesp2 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.TrackBack = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.Pause = new System.Windows.Forms.Button();
             this.PlayAndStop = new System.Windows.Forms.Button();
             this.TrackNext = new System.Windows.Forms.Button();
             this.ListUp = new System.Windows.Forms.Button();
@@ -103,14 +103,15 @@
             this.TrackBack.Text = "←";
             this.TrackBack.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // Pause
             // 
-            this.button2.Location = new System.Drawing.Point(96, 115);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Pause.Location = new System.Drawing.Point(96, 115);
+            this.Pause.Name = "Pause";
+            this.Pause.Size = new System.Drawing.Size(75, 23);
+            this.Pause.TabIndex = 5;
+            this.Pause.Text = "一時停止";
+            this.Pause.UseVisualStyleBackColor = true;
+            this.Pause.Click += new System.EventHandler(this.Pause_Click);
             // 
             // PlayAndStop
             // 
@@ -118,7 +119,7 @@
             this.PlayAndStop.Name = "PlayAndStop";
             this.PlayAndStop.Size = new System.Drawing.Size(75, 23);
             this.PlayAndStop.TabIndex = 6;
-            this.PlayAndStop.Text = "再生/停止";
+            this.PlayAndStop.Text = "再生";
             this.PlayAndStop.UseVisualStyleBackColor = true;
             this.PlayAndStop.Click += new System.EventHandler(this.PlayAndStop_Click);
             // 
@@ -345,7 +346,7 @@
             this.Controls.Add(this.ListUp);
             this.Controls.Add(this.TrackNext);
             this.Controls.Add(this.PlayAndStop);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.Pause);
             this.Controls.Add(this.TrackBack);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.LrcDesp2);
@@ -365,7 +366,7 @@
         private System.Windows.Forms.Label LrcDesp2;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button TrackBack;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button Pause;
         private System.Windows.Forms.Button PlayAndStop;
         private System.Windows.Forms.Button TrackNext;
         private System.Windows.Forms.Button ListUp;
