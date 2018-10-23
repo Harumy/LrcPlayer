@@ -11,12 +11,14 @@ namespace LrcPlayer
     {
         static public void List_check()
         {
-            string[] Playlist_File=new string[0];
-            StreamReader sr = new StreamReader("TextFile.txt");
+            string[] Playlist_File = new string[100];
+            StreamReader sr = new StreamReader("M:\\List.txt");
             int i = 0;
             while (sr.Peek() != -1)
             {
-                Playlist_File[0] = sr.ReadLine();
+                Playlist_File[i] = sr.ReadLine();
+                Console.WriteLine(Playlist_File[i]);
+                i += 1;
             }
             sr.Close();
 

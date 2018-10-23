@@ -36,10 +36,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.PlayAndStop = new System.Windows.Forms.Button();
             this.TrackNext = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.ListUp = new System.Windows.Forms.Button();
+            this.ListPlaying = new System.Windows.Forms.Button();
+            this.ReadList = new System.Windows.Forms.Button();
+            this.ListDown = new System.Windows.Forms.Button();
             this.Music1_Title = new System.Windows.Forms.Label();
             this.Music2_Title = new System.Windows.Forms.Label();
             this.Music3_Title = new System.Windows.Forms.Label();
@@ -120,6 +120,7 @@
             this.PlayAndStop.TabIndex = 6;
             this.PlayAndStop.Text = "再生/停止";
             this.PlayAndStop.UseVisualStyleBackColor = true;
+            this.PlayAndStop.Click += new System.EventHandler(this.PlayAndStop_Click);
             // 
             // TrackNext
             // 
@@ -130,41 +131,41 @@
             this.TrackNext.Text = "→";
             this.TrackNext.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // ListUp
             // 
-            this.button5.Location = new System.Drawing.Point(12, 144);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "上";
-            this.button5.UseVisualStyleBackColor = true;
+            this.ListUp.Location = new System.Drawing.Point(12, 144);
+            this.ListUp.Name = "ListUp";
+            this.ListUp.Size = new System.Drawing.Size(75, 23);
+            this.ListUp.TabIndex = 8;
+            this.ListUp.Text = "上";
+            this.ListUp.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // ListPlaying
             // 
-            this.button6.Location = new System.Drawing.Point(96, 144);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 9;
-            this.button6.Text = "現在の位置";
-            this.button6.UseVisualStyleBackColor = true;
+            this.ListPlaying.Location = new System.Drawing.Point(96, 144);
+            this.ListPlaying.Name = "ListPlaying";
+            this.ListPlaying.Size = new System.Drawing.Size(75, 23);
+            this.ListPlaying.TabIndex = 9;
+            this.ListPlaying.Text = "現在の位置";
+            this.ListPlaying.UseVisualStyleBackColor = true;
             // 
-            // button7
+            // ReadList
             // 
-            this.button7.Location = new System.Drawing.Point(178, 144);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 10;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
+            this.ReadList.Location = new System.Drawing.Point(178, 144);
+            this.ReadList.Name = "ReadList";
+            this.ReadList.Size = new System.Drawing.Size(75, 23);
+            this.ReadList.TabIndex = 10;
+            this.ReadList.Text = "List読込";
+            this.ReadList.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // ListDown
             // 
-            this.button8.Location = new System.Drawing.Point(259, 144);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
-            this.button8.TabIndex = 11;
-            this.button8.Text = "下";
-            this.button8.UseVisualStyleBackColor = true;
+            this.ListDown.Location = new System.Drawing.Point(259, 144);
+            this.ListDown.Name = "ListDown";
+            this.ListDown.Size = new System.Drawing.Size(75, 23);
+            this.ListDown.TabIndex = 11;
+            this.ListDown.Text = "下";
+            this.ListDown.UseVisualStyleBackColor = true;
             // 
             // Music1_Title
             // 
@@ -338,10 +339,10 @@
             this.Controls.Add(this.Music3_Title);
             this.Controls.Add(this.Music2_Title);
             this.Controls.Add(this.Music1_Title);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.ListDown);
+            this.Controls.Add(this.ReadList);
+            this.Controls.Add(this.ListPlaying);
+            this.Controls.Add(this.ListUp);
             this.Controls.Add(this.TrackNext);
             this.Controls.Add(this.PlayAndStop);
             this.Controls.Add(this.button2);
@@ -367,10 +368,10 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button PlayAndStop;
         private System.Windows.Forms.Button TrackNext;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button ListUp;
+        private System.Windows.Forms.Button ListPlaying;
+        private System.Windows.Forms.Button ReadList;
+        private System.Windows.Forms.Button ListDown;
         private System.Windows.Forms.Label Music1_Title;
         private System.Windows.Forms.Label Music2_Title;
         private System.Windows.Forms.Label Music3_Title;
