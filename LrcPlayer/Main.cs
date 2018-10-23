@@ -8,17 +8,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Shell32;
+using System.IO;
 
 namespace LrcPlayer
 {
     public partial class Main : Form
     {
-        private int PlayingFlag = 0;
+        Label[] Labarr = new Label[4];
+        void Labels()
+        {
+            Labarr[0] = Music1_Title;
+            Labarr[1] = Music2_Title;
+            Labarr[2] = Music3_Title;
+            Labarr[3] = Music4_Title;
+        }
+
+    private int PlayingFlag = 0;
+        int PlayingTrack = 0;
         int PastTime = 0;
-        public string[][] PlayList;
+        static public string[] PlayList;
         string cmd;
         int Time;
         public Timer Timer = new Timer();
+        string TrackLength;
 
         [System.Runtime.InteropServices.DllImport("winmm.dll")]
         private static extern int mciSendString(String command,StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
@@ -27,7 +39,6 @@ namespace LrcPlayer
         public Main()
         {
             InitializeComponent();
-            InitLoad();
             Start();
         }
         public void Start()
@@ -38,11 +49,26 @@ namespace LrcPlayer
                 PastTime += 1;
                 Elapse(PastTime);
             };
+            List.List_check();
         }
         private void InitLoad()
         {
+            for (int i = 0; i < 5; i += 1) {
+                int tmp = PlayingTrack + i;
+                if (PlayList.Length <= tmp)
+                {
+                    tmp = tmp - PlayList.Length;
+                }
+                Control[] cs = this.Controls.Find("Music" + (i+1) + "_Title", true);
+                if (cs.Length > 0)
+                {
+                    ((Label)cs[0]).Text = Path.GetFileNameWithoutExtension(PlayList[tmp]);
+                }
+                Console.WriteLine(Path.GetFileNameWithoutExtension(PlayList[tmp]));
+            }
+
             StringBuilder PlayTime = new StringBuilder();
-            string FileName = @"M:\楽曲\ボカロ\キミノヨゾラ哨戒班.mp3";
+            string FileName = PlayList[PlayingTrack];
             cmd = "open \"" + FileName + "\" type mpegvideo alias " + aliasName;
             Console.WriteLine(cmd);
             if (mciSendString(cmd, null, 0, IntPtr.Zero) != 0)
@@ -57,17 +83,31 @@ namespace LrcPlayer
             Time = Time / 1000;
             int Sec = Time % 60;
             int Min = (Time - Sec) / 60;
+            string SecTmp;
+            if (Sec < 10)
+            {
+                SecTmp = "0" + Sec;
+            }
+            else
+            {
+                SecTmp = Sec.ToString();
+            }
+            TrackLength = Min + ":" + SecTmp;
             Console.WriteLine(Min + ":" + Sec);
             Console.WriteLine(Time);
+
         }
         private void Play()
         {
+            InitLoad();
+            Console.WriteLine(PlayingTrack.ToString());
             cmd = "Play " + aliasName;
             mciSendString(cmd, null, 0, IntPtr.Zero);
             PlayingFlag = 1;
             Console.WriteLine("Flag:" + PlayingFlag);
             PlayAndStop.Text = "停止";
             Timer.Start();
+            Track.Text = (PlayingTrack+1).ToString() + "/" + PlayList.Length.ToString();
         }
         private void Stop()
         {
@@ -82,6 +122,13 @@ namespace LrcPlayer
             Timer.Stop();
             Timer.Dispose();
             PastTime = 0;
+            PlayingTrack += 1;
+            if (PlayList.Length <= PlayingTrack)
+            {
+                PlayingTrack = 0;
+            }
+            cmd = "close " + aliasName;
+            mciSendString(cmd, null, 0, IntPtr.Zero);
         }
         private void PlayAndStop_Click(object sender, EventArgs e)
         {
@@ -96,7 +143,7 @@ namespace LrcPlayer
         }
         private void Elapse(int PastTime)
         {
-            if (Time < PastTime)
+            if (Time <= PastTime)
             {
                 Stop();
                 Play();
@@ -109,9 +156,22 @@ namespace LrcPlayer
         private void Gauge(int PlayTime,int PastTime)
         {
             Console.WriteLine(PastTime + "/" + PlayTime);
+            int tmp = PastTime;
             progressBar1.Minimum = 0;
             progressBar1.Maximum = PlayTime;
             progressBar1.Value = PastTime;
+            int Sec = tmp % 60;
+            int Min = (tmp - Sec) / 60;
+            string SecTmp;
+            if (Sec < 10)
+            {
+                SecTmp = "0" + Sec;
+            }
+            else
+            {
+                SecTmp = Sec.ToString();
+            }
+            Length.Text = Min + ":" + SecTmp + "/" + TrackLength;
         }
 
         private void Pause_Click(object sender, EventArgs e)
@@ -134,6 +194,12 @@ namespace LrcPlayer
                 PlayingFlag = 1;
                 Timer.Start();
             }
+        }
+
+        private void TrackNext_Click(object sender, EventArgs e)
+        {
+            Stop();
+            Play();
         }
     }
 }

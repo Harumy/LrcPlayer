@@ -44,17 +44,16 @@
             this.Music2_Title = new System.Windows.Forms.Label();
             this.Music3_Title = new System.Windows.Forms.Label();
             this.Music4_Title = new System.Windows.Forms.Label();
-            this.Music5_Title = new System.Windows.Forms.Label();
             this.Music1_Time = new System.Windows.Forms.Label();
             this.Music2_Time = new System.Windows.Forms.Label();
             this.Music3_Time = new System.Windows.Forms.Label();
             this.Music4_Time = new System.Windows.Forms.Label();
-            this.Music5_Time = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.Track = new System.Windows.Forms.Label();
+            this.Length = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LrcDesp1
@@ -131,6 +130,7 @@
             this.TrackNext.TabIndex = 7;
             this.TrackNext.Text = "→";
             this.TrackNext.UseVisualStyleBackColor = true;
+            this.TrackNext.Click += new System.EventHandler(this.TrackNext_Click);
             // 
             // ListUp
             // 
@@ -208,16 +208,6 @@
             this.Music4_Title.Text = "Music4";
             this.Music4_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Music5_Title
-            // 
-            this.Music5_Title.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Music5_Title.Location = new System.Drawing.Point(12, 262);
-            this.Music5_Title.Name = "Music5_Title";
-            this.Music5_Title.Size = new System.Drawing.Size(159, 23);
-            this.Music5_Title.TabIndex = 16;
-            this.Music5_Title.Text = "Music5";
-            this.Music5_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // Music1_Time
             // 
             this.Music1_Time.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -257,16 +247,6 @@
             this.Music4_Time.TabIndex = 20;
             this.Music4_Time.Text = "00:09";
             this.Music4_Time.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Music5_Time
-            // 
-            this.Music5_Time.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Music5_Time.Location = new System.Drawing.Point(175, 262);
-            this.Music5_Time.Name = "Music5_Time";
-            this.Music5_Time.Size = new System.Drawing.Size(78, 23);
-            this.Music5_Time.TabIndex = 21;
-            this.Music5_Time.Text = "123:41";
-            this.Music5_Time.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label11
             // 
@@ -308,15 +288,25 @@
             this.label14.Text = "label14";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label15
+            // Track
             // 
-            this.label15.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label15.Location = new System.Drawing.Point(256, 262);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(78, 23);
-            this.label15.TabIndex = 26;
-            this.label15.Text = "label15";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Track.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Track.Location = new System.Drawing.Point(12, 262);
+            this.Track.Name = "Track";
+            this.Track.Size = new System.Drawing.Size(159, 23);
+            this.Track.TabIndex = 26;
+            this.Track.Text = "0/0";
+            this.Track.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Length
+            // 
+            this.Length.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Length.Location = new System.Drawing.Point(176, 262);
+            this.Length.Name = "Length";
+            this.Length.Size = new System.Drawing.Size(158, 23);
+            this.Length.TabIndex = 27;
+            this.Length.Text = "0:00/0:00";
+            this.Length.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Main
             // 
@@ -325,17 +315,16 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(346, 294);
-            this.Controls.Add(this.label15);
+            this.Controls.Add(this.Length);
+            this.Controls.Add(this.Track);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.Music5_Time);
             this.Controls.Add(this.Music4_Time);
             this.Controls.Add(this.Music3_Time);
             this.Controls.Add(this.Music2_Time);
             this.Controls.Add(this.Music1_Time);
-            this.Controls.Add(this.Music5_Title);
             this.Controls.Add(this.Music4_Title);
             this.Controls.Add(this.Music3_Title);
             this.Controls.Add(this.Music2_Title);
@@ -377,17 +366,16 @@
         private System.Windows.Forms.Label Music2_Title;
         private System.Windows.Forms.Label Music3_Title;
         private System.Windows.Forms.Label Music4_Title;
-        private System.Windows.Forms.Label Music5_Title;
         private System.Windows.Forms.Label Music1_Time;
         private System.Windows.Forms.Label Music2_Time;
         private System.Windows.Forms.Label Music3_Time;
         private System.Windows.Forms.Label Music4_Time;
-        private System.Windows.Forms.Label Music5_Time;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label Track;
+        private System.Windows.Forms.Label Length;
     }
 }
 
