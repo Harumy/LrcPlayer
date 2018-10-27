@@ -14,16 +14,7 @@ namespace LrcPlayer
 {
     public partial class Main : Form
     {
-        Label[] Labarr = new Label[4];
-        void Labels()
-        {
-            Labarr[0] = Music1_Title;
-            Labarr[1] = Music2_Title;
-            Labarr[2] = Music3_Title;
-            Labarr[3] = Music4_Title;
-        }
-
-    private int PlayingFlag = 0;
+        private int PlayingFlag = 0;
         int PlayingTrack = 0;
         int PastTime = 0;
         static public string[] PlayList;
@@ -53,18 +44,18 @@ namespace LrcPlayer
         }
         private void InitLoad()
         {
-            for (int i = 0; i < 5; i += 1) {
+            for (int i = 0; i < 4; i += 1) {
                 int tmp = PlayingTrack + i;
                 if (PlayList.Length <= tmp)
                 {
                     tmp = tmp - PlayList.Length;
                 }
-                Control[] cs = this.Controls.Find("Music" + (i+1) + "_Title", true);
+                Control[] cs = Controls.Find("Music" + (i+1) + "_Title", true);
                 if (cs.Length > 0)
                 {
                     ((Label)cs[0]).Text = Path.GetFileNameWithoutExtension(PlayList[tmp]);
                 }
-                Console.WriteLine(Path.GetFileNameWithoutExtension(PlayList[tmp]));
+                Console.WriteLine(tmp.ToString()+":"+Path.GetFileNameWithoutExtension(PlayList[tmp]));
             }
 
             StringBuilder PlayTime = new StringBuilder();
@@ -79,23 +70,9 @@ namespace LrcPlayer
             cmd = "Status " + aliasName + " length";
             mciSendString(cmd, PlayTime, 256, IntPtr.Zero);
             Time = int.Parse(PlayTime.ToString());
-            Time = Time - Time % 1000;
             Time = Time / 1000;
-            int Sec = Time % 60;
-            int Min = (Time - Sec) / 60;
-            string SecTmp;
-            if (Sec < 10)
-            {
-                SecTmp = "0" + Sec;
-            }
-            else
-            {
-                SecTmp = Sec.ToString();
-            }
-            TrackLength = Min + ":" + SecTmp;
-            Console.WriteLine(Min + ":" + Sec);
-            Console.WriteLine(Time);
-
+            String aaa = StrTime(Time);
+            TrackLength = aaa;
         }
         private void Play()
         {
@@ -122,13 +99,16 @@ namespace LrcPlayer
             Timer.Stop();
             Timer.Dispose();
             PastTime = 0;
+            cmd = "close " + aliasName;
+            mciSendString(cmd, null, 0, IntPtr.Zero);
+        }
+        private void Next()
+        {
             PlayingTrack += 1;
             if (PlayList.Length <= PlayingTrack)
             {
                 PlayingTrack = 0;
             }
-            cmd = "close " + aliasName;
-            mciSendString(cmd, null, 0, IntPtr.Zero);
         }
         private void PlayAndStop_Click(object sender, EventArgs e)
         {
@@ -156,22 +136,11 @@ namespace LrcPlayer
         private void Gauge(int PlayTime,int PastTime)
         {
             Console.WriteLine(PastTime + "/" + PlayTime);
-            int tmp = PastTime;
+            string tmp = StrTime(PastTime);
             progressBar1.Minimum = 0;
             progressBar1.Maximum = PlayTime;
             progressBar1.Value = PastTime;
-            int Sec = tmp % 60;
-            int Min = (tmp - Sec) / 60;
-            string SecTmp;
-            if (Sec < 10)
-            {
-                SecTmp = "0" + Sec;
-            }
-            else
-            {
-                SecTmp = Sec.ToString();
-            }
-            Length.Text = Min + ":" + SecTmp + "/" + TrackLength;
+            Length.Text = tmp + "/" + TrackLength;
         }
 
         private void Pause_Click(object sender, EventArgs e)
@@ -199,7 +168,24 @@ namespace LrcPlayer
         private void TrackNext_Click(object sender, EventArgs e)
         {
             Stop();
+            Next();
             Play();
+        }
+        public string StrTime(int I)
+        {
+            int Sec = I % 60;
+            int Min = (I - Sec) / 60;
+            string SecTmp;
+            if (Sec < 10)
+            {
+                SecTmp = "0" + Sec;
+            }
+            else
+            {
+                SecTmp = Sec.ToString();
+            }
+            string S = Min + ":" + SecTmp;
+            return S;
         }
     }
 }
