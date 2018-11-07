@@ -22,6 +22,10 @@ namespace LrcPlayer
         int Time;
         public Timer Timer = new Timer();
         string TrackLength;
+        int[] LrcTime = new int[0];
+        string[] LrcStr = new string[0];
+        int Disp_Lrc=0;
+        bool LrcFlag = false;
 
         [System.Runtime.InteropServices.DllImport("winmm.dll")]
         private static extern int mciSendString(String command,StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
@@ -73,6 +77,32 @@ namespace LrcPlayer
             Time = Time / 1000;
             String aaa = StrTime(Time);
             TrackLength = aaa;
+            string LrcName = PlayList[PlayingTrack].Replace(".mp3", ".lrc");
+            if (System.IO.File.Exists(LrcName))
+            {
+                LrcFlag = true;
+                StreamReader sr = new StreamReader(LrcName);
+                while (sr.Peek() != -1)
+                {
+                    string reading = sr.ReadLine();
+                    string[] read = reading.Split(']');
+                    Array.Resize(ref LrcStr, LrcStr.Length + 1);
+                    LrcStr[LrcStr.Length - 1] = read[1];
+                    read[0].Replace("[","");
+                    string[] readTime_Tmp = read[0].Split(':');
+                    int readTime = new int();
+                    readTime = int.Parse(readTime_Tmp[0])*60*1000;
+                    if (readTime_Tmp[1].IndexOf(".") != -1)
+                    {
+                        
+                    }
+                    else
+                    {
+                        readTime = readTime + int.Parse(readTime_Tmp[1]);
+                    }
+                    readTime = readTime / 1000;
+                }
+            }
         }
         private void Play()
         {
@@ -88,6 +118,9 @@ namespace LrcPlayer
         }
         private void Stop()
         {
+            LrcDesp1.Text = "";
+            LrcDesp2.Text = "";
+            LrcDesp3.Text = "";
             string cmd;
             cmd = "stop " + aliasName;
             mciSendString(cmd, null, 0, IntPtr.Zero);
@@ -131,6 +164,27 @@ namespace LrcPlayer
             else
             {
                 Gauge(Time, PastTime);
+                if (LrcFlag)
+                {
+                    if (PastTime < LrcTime[Disp_Lrc])
+                    {
+                        LrcDesp1.Text = LrcStr[Disp_Lrc];
+                        LrcDesp2.Text = LrcStr[Disp_Lrc + 1];
+                        LrcDesp3.Text = LrcStr[Disp_Lrc + 2];
+                    }
+                    else
+                    {
+                        Disp_Lrc++;
+                        LrcDesp1.Text = LrcStr[Disp_Lrc];
+                        LrcDesp2.Text = LrcStr[Disp_Lrc + 1];
+                        LrcDesp3.Text = LrcStr[Disp_Lrc + 2];
+
+                    }
+                }
+                else
+                {
+                    LrcDesp1.Text = "歌詞ファイルがありません。";
+                }
             }
         }
         private void Gauge(int PlayTime,int PastTime)
@@ -186,6 +240,11 @@ namespace LrcPlayer
             }
             string S = Min + ":" + SecTmp;
             return S;
+        }
+
+        private void ReadList_Click(object sender, EventArgs e)
+        {
+            List.List_check();
         }
     }
 }

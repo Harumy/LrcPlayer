@@ -12,7 +12,14 @@ namespace LrcPlayer
         static public void List_check()
         {
             string[] Playlist_File = new string[0];
-            StreamReader sr = new StreamReader("M:\\List.txt");
+            System.Windows.Forms.OpenFileDialog OFD = new System.Windows.Forms.OpenFileDialog();
+            OFD.FileName = "List.txt";
+            OFD.InitialDirectory = @"M:\";
+            if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Console.WriteLine(OFD.FileName);
+            }
+            StreamReader sr = new StreamReader(OFD.FileName);
             int i = 0;
             while (sr.Peek() != -1)
             {
@@ -31,7 +38,7 @@ namespace LrcPlayer
         {
             string[] List = PlayList.OrderBy(i => Guid.NewGuid()).ToArray();
 
-            System.Random rng = new System.Random();
+            Random rng = new Random();
             int n = PlayList.Length;
             while (n > 1)
             {

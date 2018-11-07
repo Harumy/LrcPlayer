@@ -158,6 +158,7 @@
             this.ReadList.TabIndex = 10;
             this.ReadList.Text = "List読込";
             this.ReadList.UseVisualStyleBackColor = true;
+            this.ReadList.Click += new System.EventHandler(this.ReadList_Click);
             // 
             // ListDown
             // 
