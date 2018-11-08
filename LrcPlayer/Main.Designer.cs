@@ -101,6 +101,7 @@
             this.TrackBack.TabIndex = 4;
             this.TrackBack.Text = "←";
             this.TrackBack.UseVisualStyleBackColor = true;
+            this.TrackBack.Click += new System.EventHandler(this.TrackBack_Click);
             // 
             // Pause
             // 

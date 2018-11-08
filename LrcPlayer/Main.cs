@@ -264,5 +264,16 @@ namespace LrcPlayer
         {
             List.List_check();
         }
+
+        private void TrackBack_Click(object sender, EventArgs e)
+        {
+            Stop();
+            PlayingTrack -= 1;
+            if (PlayingTrack<0)
+            {
+                PlayingTrack = PlayList.Length-1;
+            }
+            Play();
+        }
     }
 }
