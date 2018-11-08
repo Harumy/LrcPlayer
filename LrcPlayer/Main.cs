@@ -78,6 +78,7 @@ namespace LrcPlayer
             String aaa = StrTime(Time);
             TrackLength = aaa;
             string LrcName = PlayList[PlayingTrack].Replace(".mp3", ".lrc");
+            Console.WriteLine(LrcName);
             if (System.IO.File.Exists(LrcName))
             {
                 LrcFlag = true;
@@ -88,8 +89,9 @@ namespace LrcPlayer
                     string[] read = reading.Split(']');
                     Array.Resize(ref LrcStr, LrcStr.Length + 1);
                     LrcStr[LrcStr.Length - 1] = read[1];
-                    read[0].Replace("[","");
-                    string[] readTime_Tmp = read[0].Split(':');
+                    string tmp1=read[0].Replace("[","0");
+                    Console.WriteLine(tmp1);
+                    string[] readTime_Tmp = tmp1.Split(':');
                     int readTime = new int();
                     readTime = int.Parse(readTime_Tmp[0])*60*1000;
                     if (readTime_Tmp[1].IndexOf(".") != -1)
@@ -98,9 +100,19 @@ namespace LrcPlayer
                     }
                     else
                     {
-                        readTime = readTime + int.Parse(readTime_Tmp[1]);
+                        readTime = readTime + int.Parse(readTime_Tmp[1]) * 1000;
                     }
                     readTime = readTime / 1000;
+                    int LrcTimeLength = LrcTime.Length;
+                    Array.Resize(ref LrcTime, LrcTimeLength + 1);
+                    LrcTime[LrcTimeLength] = readTime;
+                }
+                for(int i = 0; i < 3; i++)
+                {
+                    Array.Resize(ref LrcStr, LrcStr.Length + 1);
+                    LrcStr[LrcStr.Length - 1] = "";
+                    Array.Resize(ref LrcTime, LrcTime.Length + 1);
+                    LrcTime[LrcTime.Length-1] = Time;
                 }
             }
         }
@@ -118,9 +130,13 @@ namespace LrcPlayer
         }
         private void Stop()
         {
+            LrcFlag = false;
+            LrcStr = new string[0];
+            LrcTime = new int[0];
             LrcDesp1.Text = "";
             LrcDesp2.Text = "";
             LrcDesp3.Text = "";
+            Disp_Lrc = 0;
             string cmd;
             cmd = "stop " + aliasName;
             mciSendString(cmd, null, 0, IntPtr.Zero);
@@ -159,6 +175,7 @@ namespace LrcPlayer
             if (Time <= PastTime)
             {
                 Stop();
+                Next();
                 Play();
             }
             else
@@ -166,7 +183,8 @@ namespace LrcPlayer
                 Gauge(Time, PastTime);
                 if (LrcFlag)
                 {
-                    if (PastTime < LrcTime[Disp_Lrc])
+                    Console.WriteLine(LrcStr[Disp_Lrc] + ":" + LrcTime[Disp_Lrc]);
+                    if (PastTime < LrcTime[Disp_Lrc + 1])
                     {
                         LrcDesp1.Text = LrcStr[Disp_Lrc];
                         LrcDesp2.Text = LrcStr[Disp_Lrc + 1];
